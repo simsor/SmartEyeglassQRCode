@@ -41,6 +41,17 @@ import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
+import com.google.zxing.Result;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.datamatrix.DataMatrixReader;
+import com.google.zxing.qrcode.QRCodeReader;
 import com.sony.smarteyeglass.SmartEyeglassControl;
 import com.sony.smarteyeglass.extension.util.CameraEvent;
 import com.sony.smarteyeglass.extension.util.ControlCameraException;
@@ -196,6 +207,26 @@ public final class HelloWorldControl extends ControlExtension {
             byte[] data = event.getData();
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 
+            int[] intArray = new int[bitmap.getWidth()*bitmap.getHeight()];
+            //copy pixel data from the Bitmap into the 'intArray' array
+            bitmap.getPixels(intArray, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+            LuminanceSource source = new RGBLuminanceSource(bitmap.getWidth(), bitmap.getHeight(),intArray);
+
+            BinaryBitmap bbmap = new BinaryBitmap(new HybridBinarizer(source));
+            Reader reader = new QRCodeReader();
+            try {
+                Result result = reader.decode(bbmap);
+                Log.d(Constants.LOG_TAG, result.getText());
+
+                updateLayout(result.getText());
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            } catch (ChecksumException e) {
+                e.printStackTrace();
+            } catch (FormatException e) {
+                e.printStackTrace();
+            }
         }
     }
 
