@@ -233,6 +233,7 @@ public final class HelloWorldControl extends ControlExtension {
                 Reader reader = new QRCodeReader();
                 int DelayTime = 5000;
                 try {
+                    currentlyTakingPicture = false;
                     Result result = reader.decode(bbmap);
                     Log.d(Constants.LOG_TAG, result.getText());
                     DelayTime = result.getText().length() * 500;
