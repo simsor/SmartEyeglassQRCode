@@ -233,17 +233,19 @@ public final class HelloWorldControl extends ControlExtension {
                 Reader reader = new QRCodeReader();
                 int DelayTime = 5000;
                 try {
-                    currentlyTakingPicture = false;
                     Result result = reader.decode(bbmap);
                     Log.d(Constants.LOG_TAG, result.getText());
-
+                    DelayTime = result.getText().length() * 500;
                     updateLayout(result.getText());
                 } catch (NotFoundException e) {
+                    updateLayout("QR Code Not Found");
                     e.printStackTrace();
                 } catch (ChecksumException e) {
                     e.printStackTrace();
+                    updateLayout("QR Code Not Found");
                 } catch (FormatException e) {
                     e.printStackTrace();
+                    updateLayout("QR Code Not Found");
                 }
 
                 try {
@@ -255,26 +257,7 @@ public final class HelloWorldControl extends ControlExtension {
                     e.printStackTrace();
                 }
                 updateLayout("");
-            BinaryBitmap bbmap = new BinaryBitmap(new HybridBinarizer(source));
-            Reader reader = new QRCodeReader();
-            int DelayTime = 5000;
-            try {
-                Result result = reader.decode(bbmap);
-                Log.d(Constants.LOG_TAG, result.getText());
-                DelayTime = result.getText().length() * 500;
-                updateLayout(result.getText());
-            } catch (NotFoundException e) {
-                updateLayout("QR Code Not Found");
-                e.printStackTrace();
-            } catch (ChecksumException e) {
-                e.printStackTrace();
-                updateLayout("QR Code Not Found");
-            } catch (FormatException e) {
-                e.printStackTrace();
-                updateLayout("QR Code Not Found");
             }
-
-
         }
     }
 
