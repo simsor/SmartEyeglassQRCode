@@ -32,9 +32,13 @@ Copyright (c) 2014, Sony Corporation
 package com.example.sony.smarteyeglass.extension.helloworld;
 
 import android.content.Context;
+import android.text.format.Time;
 import android.util.Log;
 import com.sony.smarteyeglass.SmartEyeglassControl;
+import com.sony.smarteyeglass.extension.util.CameraEvent;
+import com.sony.smarteyeglass.extension.util.ControlCameraException;
 import com.sony.smarteyeglass.extension.util.SmartEyeglassControlUtils;
+import com.sony.smarteyeglass.extension.util.SmartEyeglassEventListener;
 import com.sonyericsson.extras.liveware.extension.util.control.ControlExtension;
 import com.sonyericsson.extras.liveware.extension.util.control.ControlTouchEvent;
 
@@ -51,6 +55,11 @@ public final class HelloWorldControl extends ControlExtension {
     /** The SmartEyeglass API version that this app uses */
     private static final int SMARTEYEGLASS_API_VERSION = 1;
 
+    private String MESSAGE = "QR CODE";
+    private boolean cameraStarted;
+    private int jpegQuality;
+    private int resolution;
+
     /**
      * Shows a simple layout on the SmartEyeglass display and sets
      * the text content dynamically at startup.
@@ -64,7 +73,24 @@ public final class HelloWorldControl extends ControlExtension {
     public HelloWorldControl(final Context context,
             final String hostAppPackageName, final String message) {
         super(context, hostAppPackageName);
-        utils = new SmartEyeglassControlUtils(hostAppPackageName, null);
+
+        // Create the listener for the Camera
+        SmartEyeglassEventListener listener = new SmartEyeglassEventListener() {
+            @Override
+            public void onCameraReceived(CameraEvent event) {
+                // The picture has been taken
+                Log.d(Constants.LOG_TAG, "Picture taken");
+                processPicture(event);
+            }
+
+            @Override
+            public void onCameraErrorReceived(int error) {
+                Log.d(Constants.LOG_TAG, "AN ERROR OCCURED: " + error);
+            }
+        };
+
+        // "utils" is a set of useful functions to work with the glasses
+        utils = new SmartEyeglassControlUtils(hostAppPackageName, listener);
         utils.setRequiredApiVersion(SMARTEYEGLASS_API_VERSION);
         utils.activate(context);
 
@@ -74,14 +100,8 @@ public final class HelloWorldControl extends ControlExtension {
          */
         HelloWorldExtensionService.Object.SmartEyeglassControl = this;
 
-        /*
-         * Show the message that was set Iif any) when this Control started
-         */
-        if (message != null) {
-            showToast(message);
-        } else {
-            updateLayout();
-        }
+        updateLayout();
+        cameraStarted = false;
     }
 
     /**
@@ -95,6 +115,10 @@ public final class HelloWorldControl extends ControlExtension {
     // Update the SmartEyeglass display when app becomes visible
     @Override
     public void onResume() {
+        jpegQuality = 1;
+        resolution = 6;
+        utils.setCameraMode(jpegQuality, resolution, SmartEyeglassControl.Intents.CAMERA_MODE_STILL);
+
         updateLayout();
         super.onResume();
     }
@@ -104,7 +128,7 @@ public final class HelloWorldControl extends ControlExtension {
     public void onDestroy() {
         Log.d(Constants.LOG_TAG, "onDestroy: HelloWorldControl");
         utils.deactivate();
-    };
+    }
 
     /**
      * Process Touch events.
@@ -113,8 +137,15 @@ public final class HelloWorldControl extends ControlExtension {
     @Override
     public void onTouch(final ControlTouchEvent event) {
         super.onTouch(event);
-        HelloWorldExtensionService.Object
-                .sendMessageToActivity("Hello Activity");
+        MESSAGE = "Snapping a picture...";
+        Log.d(Constants.LOG_TAG, "Tapped");
+
+        if (!cameraStarted) {
+            initializeCamera();
+        }
+
+        utils.requestCameraCapture();
+        updateLayout();
     }
 
     /**
@@ -122,7 +153,7 @@ public final class HelloWorldControl extends ControlExtension {
      */
     private void updateLayout() {
         showLayout(R.layout.layout, null);
-        sendText(R.id.btn_update_this, "QR CODE \\o/");
+        sendText(R.id.btn_update_this, MESSAGE);
     }
 
     /**
@@ -131,8 +162,28 @@ public final class HelloWorldControl extends ControlExtension {
      * This shows a timeout dialog with the specified message.
      */
     public void showToast(final String message) {
-        Log.d(Constants.LOG_TAG, "Timeout Dialog : HelloWorldControl");
         utils.showDialogMessage(message,
                 SmartEyeglassControl.Intents.DIALOG_MODE_TIMEOUT);
+    }
+
+    /**
+     * Call the startCamera, and start video recording or shooting.
+     */
+    private void initializeCamera() {
+        try {
+            // Start camera without filepath for other recording modes
+            Log.d(Constants.LOG_TAG, "startCamera ");
+            utils.startCamera();
+        } catch (ControlCameraException e) {
+            Log.d(Constants.LOG_TAG, "Failed to register listener", e);
+        }
+        Log.d(Constants.LOG_TAG, "onResume: Registered listener");
+
+        cameraStarted = true;
+    }
+
+    public void processPicture(CameraEvent event) {
+        MESSAGE = "Got it!";
+        updateLayout();
     }
 }
