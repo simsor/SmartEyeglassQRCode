@@ -137,6 +137,11 @@ public final class HelloWorldControl extends ControlExtension {
     // Update the SmartEyeglass display when app becomes visible
     @Override
     public void onResume() {
+        cameraStarted = false;
+        currentlyTakingPicture = false;
+        utils.setCameraMode(SmartEyeglassControl.Intents.CAMERA_JPEG_QUALITY_FINE,
+                SmartEyeglassControl.Intents.CAMERA_RESOLUTION_3M,
+                SmartEyeglassControl.Intents.CAMERA_MODE_STILL);
         updateLayout("Tap to take picture");
         super.onResume();
     }
@@ -145,6 +150,7 @@ public final class HelloWorldControl extends ControlExtension {
     @Override
     public void onDestroy() {
         Log.d(Constants.LOG_TAG, "onDestroy: HelloWorldControl");
+        utils.stopCamera();
         utils.deactivate();
     }
 
@@ -209,29 +215,31 @@ public final class HelloWorldControl extends ControlExtension {
         updateLayout("");
 
         if (event.getIndex() == 0) {
-            byte[] data = event.getData();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            if (event.getData() != null && event.getData().length > 0) {
+                byte[] data = event.getData();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 
-            int[] intArray = new int[bitmap.getWidth()*bitmap.getHeight()];
-            //copy pixel data from the Bitmap into the 'intArray' array
-            bitmap.getPixels(intArray, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+                int[] intArray = new int[bitmap.getWidth() * bitmap.getHeight()];
+                //copy pixel data from the Bitmap into the 'intArray' array
+                bitmap.getPixels(intArray, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
 
-            LuminanceSource source = new RGBLuminanceSource(bitmap.getWidth(), bitmap.getHeight(),intArray);
+                LuminanceSource source = new RGBLuminanceSource(bitmap.getWidth(), bitmap.getHeight(), intArray);
 
-            BinaryBitmap bbmap = new BinaryBitmap(new HybridBinarizer(source));
-            Reader reader = new QRCodeReader();
-            try {
-                currentlyTakingPicture = false;
-                Result result = reader.decode(bbmap);
-                Log.d(Constants.LOG_TAG, result.getText());
+                BinaryBitmap bbmap = new BinaryBitmap(new HybridBinarizer(source));
+                Reader reader = new QRCodeReader();
+                try {
+                    currentlyTakingPicture = false;
+                    Result result = reader.decode(bbmap);
+                    Log.d(Constants.LOG_TAG, result.getText());
 
-                updateLayout(result.getText());
-            } catch (NotFoundException e) {
-                e.printStackTrace();
-            } catch (ChecksumException e) {
-                e.printStackTrace();
-            } catch (FormatException e) {
-                e.printStackTrace();
+                    updateLayout(result.getText());
+                } catch (NotFoundException e) {
+                    e.printStackTrace();
+                } catch (ChecksumException e) {
+                    e.printStackTrace();
+                } catch (FormatException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
