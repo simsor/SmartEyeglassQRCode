@@ -41,9 +41,6 @@ import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.sony.smarteyeglass.SmartEyeglassControl;
 import com.sony.smarteyeglass.extension.util.CameraEvent;
 import com.sony.smarteyeglass.extension.util.ControlCameraException;
@@ -193,8 +190,7 @@ public final class HelloWorldControl extends ControlExtension {
     }
 
     public void processPicture(CameraEvent event) {
-        MESSAGE = "Got it!";
-        updateLayout();
+        updateLayout("");
 
         if (event.getIndex() == 0) {
             byte[] data = event.getData();
