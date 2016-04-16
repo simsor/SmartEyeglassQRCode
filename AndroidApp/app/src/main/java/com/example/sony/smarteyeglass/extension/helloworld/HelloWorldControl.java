@@ -66,10 +66,7 @@ public final class HelloWorldControl extends ControlExtension {
     /** The SmartEyeglass API version that this app uses */
     private static final int SMARTEYEGLASS_API_VERSION = 1;
 
-    private String MESSAGE = "QR Code Reader";
     private boolean cameraStarted;
-
-    private int width, height;
 
     /**
      * Shows a simple layout on the SmartEyeglass display and sets
@@ -115,13 +112,8 @@ public final class HelloWorldControl extends ControlExtension {
          */
         HelloWorldExtensionService.Object.SmartEyeglassControl = this;
 
-        updateLayout();
+        updateLayout("");
         cameraStarted = false;
-
-        BarcodeDetector barcodeDetector =
-                new BarcodeDetector.Builder(this.mContext)
-                        .setBarcodeFormats(Barcode.QR_CODE)
-                        .build();
     }
 
     /**
@@ -135,7 +127,7 @@ public final class HelloWorldControl extends ControlExtension {
     // Update the SmartEyeglass display when app becomes visible
     @Override
     public void onResume() {
-        updateLayout();
+        updateLayout("Tap to take picture");
         super.onResume();
     }
 
@@ -155,7 +147,6 @@ public final class HelloWorldControl extends ControlExtension {
         super.onTouch(event);
 
         if (event.getAction() == Control.TapActions.SINGLE_TAP) {
-            MESSAGE = "Snapping a picture...";
             Log.d(Constants.LOG_TAG, "Tapped");
 
             if (!cameraStarted) {
@@ -163,16 +154,16 @@ public final class HelloWorldControl extends ControlExtension {
             }
 
             utils.requestCameraCapture();
-            updateLayout();
+            updateLayout("Snapping a picture...");
         }
     }
 
     /**
      *  Update the display with the dynamic message text.
      */
-    private void updateLayout() {
+    private void updateLayout(String Text) {
         showLayout(R.layout.layout, null);
-        sendText(R.id.btn_update_this, MESSAGE);
+        sendText(R.id.btn_update_this, Text);
     }
 
     /**
