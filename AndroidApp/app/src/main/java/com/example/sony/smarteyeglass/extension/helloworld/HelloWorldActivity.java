@@ -99,7 +99,7 @@ public final class HelloWorldActivity extends Activity {
         // Check ExtensionService is ready and referenced
         if (HelloWorldExtensionService.Object != null) {
             HelloWorldExtensionService.Object
-                    .sendMessageToExtension("Hello SmartEyeglass");
+                    .sendMessageToExtension("Hello Sony SmartEyeglass");
         }
     }
 }

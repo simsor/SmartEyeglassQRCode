@@ -122,7 +122,7 @@ public final class HelloWorldControl extends ControlExtension {
      */
     private void updateLayout() {
         showLayout(R.layout.layout, null);
-        sendText(R.id.btn_update_this, "QR CODE \\o/");
+        sendText(R.id.btn_update_this, "QR Code Reader");
     }
 
     /**
