@@ -35,9 +35,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -50,7 +49,6 @@ import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.datamatrix.DataMatrixReader;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.sony.smarteyeglass.SmartEyeglassControl;
 import com.sony.smarteyeglass.extension.util.CameraEvent;
@@ -71,6 +69,8 @@ public final class HelloWorldControl extends ControlExtension {
     //all clues stored here to be displayed on the phone
     public static String Clues="";
 
+    private static final int TEXT_SIZE = 16;
+    private static final String DEFAULT_TEXT = "Tap to take a picture";
     /**
      * Instance of the SmartEyeglass Control Utility class.
      */
@@ -83,6 +83,8 @@ public final class HelloWorldControl extends ControlExtension {
 
     private boolean cameraStarted;
     private boolean currentlyTakingPicture;
+
+    private ScreenSize screenSize;
 
     /**
      * Shows a simple layout on the SmartEyeglass display and sets
@@ -128,7 +130,9 @@ public final class HelloWorldControl extends ControlExtension {
          */
         HelloWorldExtensionService.Object.SmartEyeglassControl = this;
 
-        updateLayout("");
+        screenSize = new ScreenSize(context);
+
+        updateLayout(DEFAULT_TEXT);
         cameraStarted = false;
         currentlyTakingPicture = false;
     }
@@ -149,7 +153,7 @@ public final class HelloWorldControl extends ControlExtension {
         utils.setCameraMode(SmartEyeglassControl.Intents.CAMERA_JPEG_QUALITY_FINE,
                 SmartEyeglassControl.Intents.CAMERA_RESOLUTION_3M,
                 SmartEyeglassControl.Intents.CAMERA_MODE_STILL);
-        updateLayout("Tap to take picture");
+        updateLayout(DEFAULT_TEXT);
         super.onResume();
     }
 
@@ -187,9 +191,32 @@ public final class HelloWorldControl extends ControlExtension {
     /**
      * Update the display with the dynamic message text.
      */
-    private void updateLayout(String Text) {
-        showLayout(R.layout.layout, null);
-        sendText(R.id.btn_update_this, Text);
+    private void updateLayout(String[] text) {
+        Bitmap textBmp = Bitmap.createBitmap(screenSize.getWidth(),
+                screenSize.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        textBmp.setDensity(DisplayMetrics.DENSITY_DEFAULT);
+
+        Canvas canvas = new Canvas(textBmp);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(TEXT_SIZE);
+        paint.setColor(Color.WHITE);
+
+        int x = 0;
+        int stepY = 20;
+        int y = stepY;
+
+        for (String curText : text) {
+            canvas.drawText(curText, x, y, paint);
+            y += stepY;
+        }
+
+        showBitmap(textBmp);
+    }
+
+    private void updateLayout(String text) {
+        updateLayout(new String[] { text });
     }
 
     /**
@@ -219,7 +246,7 @@ public final class HelloWorldControl extends ControlExtension {
     }
 
     public void processPicture(CameraEvent event) {
-        updateLayout("");
+        updateLayout("Please wait...");
 
         if (event.getIndex() == 0) {
             if (event.getData() != null && event.getData().length > 0) {
@@ -240,17 +267,20 @@ public final class HelloWorldControl extends ControlExtension {
                     Result result = reader.decode(bbmap);
                     Log.d(Constants.LOG_TAG, result.getText());
                     DelayTime = result.getText().length() * 500;
-                    updateLayout(result.getText());
+                    updateLayout(result.getText().split("\n"));
                     Clues = result.getText() +  "\n" + Clues;
                 } catch (NotFoundException e) {
                     updateLayout("QR Code Not Found");
                     e.printStackTrace();
                 } catch (ChecksumException e) {
                     e.printStackTrace();
-                    updateLayout("QR Code Not Found");
+                    updateLayout(new String[] {
+                            "QR Code looks corrupted",
+                            "Maybe try again?"
+                    });
                 } catch (FormatException e) {
                     e.printStackTrace();
-                    updateLayout("QR Code Not Found");
+                    updateLayout("That's not a QR Code");
                 }
 
                 try {
@@ -261,7 +291,7 @@ public final class HelloWorldControl extends ControlExtension {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                updateLayout("");
+                updateLayout(DEFAULT_TEXT);
             }
         }
     }
