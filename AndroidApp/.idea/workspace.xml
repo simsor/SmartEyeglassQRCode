@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="85f35f60-d29e-49f4-9a25-2c12c1823382" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java" />
     </list>
     <ignored path="AndroidApp.iws" />
@@ -43,8 +42,8 @@
       <file leaf-file-name="HelloWorldControl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4312394">
-              <caret line="245" column="57" selection-start-line="245" selection-start-column="57" selection-end-line="245" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.32258064">
+              <caret line="218" column="36" selection-start-line="218" selection-start-column="36" selection-end-line="218" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -3900,7 +3899,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460841709180</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Changed the messages in case the QR code wasn't properly parsed">
+      <created>1460843802017</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1460843802017</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3944,7 +3949,8 @@
     <MESSAGE value="QR Detection working" />
     <MESSAGE value="Merge" />
     <MESSAGE value="Fix taking multiple pictures" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix taking multiple pictures" />
+    <MESSAGE value="Changed the messages in case the QR code wasn't properly parsed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed the messages in case the QR code wasn't properly parsed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -4053,8 +4059,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4312394">
-          <caret line="245" column="57" selection-start-line="245" selection-start-column="57" selection-end-line="245" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.32258064">
+          <caret line="218" column="36" selection-start-line="218" selection-start-column="36" selection-end-line="218" selection-end-column="36" />
           <folding />
         </state>
       </provider>

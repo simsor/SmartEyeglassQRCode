@@ -216,7 +216,7 @@ public final class HelloWorldControl extends ControlExtension {
     }
 
     public void processPicture(CameraEvent event) {
-        updateLayout("");
+        updateLayout("Please wait...");
 
         if (event.getIndex() == 0) {
             if (event.getData() != null && event.getData().length > 0) {
