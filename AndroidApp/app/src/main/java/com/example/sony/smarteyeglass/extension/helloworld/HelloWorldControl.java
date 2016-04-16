@@ -68,6 +68,9 @@ import com.sonyericsson.extras.liveware.extension.util.control.ControlTouchEvent
  */
 public final class HelloWorldControl extends ControlExtension {
 
+    //all clues stored here to be displayed on the phone
+    public static String Clues="";
+
     /**
      * Instance of the SmartEyeglass Control Utility class.
      */
@@ -238,6 +241,7 @@ public final class HelloWorldControl extends ControlExtension {
                     Log.d(Constants.LOG_TAG, result.getText());
                     DelayTime = result.getText().length() * 500;
                     updateLayout(result.getText());
+                    Clues = result.getText() +  "\n" + Clues;
                 } catch (NotFoundException e) {
                     updateLayout("QR Code Not Found");
                     e.printStackTrace();

@@ -15,5 +15,6 @@
     
         <!-- Configuration title shown in preferences -->
     <string name="configuration_text">AR Treasure Hunt Activity</string>
-    
+    <string name="refresh_clues">Refresh Clues</string>
+
 </resources>

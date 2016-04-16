@@ -40,6 +40,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -50,20 +51,16 @@ import android.widget.Toast;
  */
 public final class HelloWorldActivity extends Activity {
 
+
+        TextView CluesText;
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.phonelayout);
 
-        // When button is clicked, run the SmartEyeglass app
-        Button btnGlass = (Button) findViewById(R.id.btnglass);
-        btnGlass.setOnClickListener(new OnClickListener() {
+        CluesText = (TextView)findViewById(R.id.CluesTextArea);
 
-            @Override
-            public void onClick(final View v) {
-                startExtension();
-            }
-        });
+        CluesText.setText(HelloWorldControl.Clues);
 
         /*
          * Check if activity was started with a message in the intent
@@ -101,5 +98,9 @@ public final class HelloWorldActivity extends Activity {
             HelloWorldExtensionService.Object
                     .sendMessageToExtension("Hello Sony SmartEyeglass");
         }
+    }
+
+    public void RefreshText(View view){
+        CluesText.setText(HelloWorldControl.Clues);
     }
 }
