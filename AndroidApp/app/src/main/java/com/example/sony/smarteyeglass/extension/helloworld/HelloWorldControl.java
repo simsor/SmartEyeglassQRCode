@@ -243,10 +243,10 @@ public final class HelloWorldControl extends ControlExtension {
                     e.printStackTrace();
                 } catch (ChecksumException e) {
                     e.printStackTrace();
-                    updateLayout("QR Code Not Found");
+                    updateLayout("QR Code looks corrupted");
                 } catch (FormatException e) {
                     e.printStackTrace();
-                    updateLayout("QR Code Not Found");
+                    updateLayout("That's not a QR Code");
                 }
 
                 try {
