@@ -75,6 +75,7 @@ public final class HelloWorldControl extends ControlExtension {
     private static final int SMARTEYEGLASS_API_VERSION = 1;
 
     private boolean cameraStarted;
+    private boolean currentlyTakingPicture;
 
     /**
      * Shows a simple layout on the SmartEyeglass display and sets
@@ -122,6 +123,7 @@ public final class HelloWorldControl extends ControlExtension {
 
         updateLayout("");
         cameraStarted = false;
+        currentlyTakingPicture = false;
     }
 
     /**
@@ -161,8 +163,11 @@ public final class HelloWorldControl extends ControlExtension {
                 initializeCamera();
             }
 
-            utils.requestCameraCapture();
-            updateLayout("Snapping a picture...");
+            if (!currentlyTakingPicture) {
+                currentlyTakingPicture = true;
+                utils.requestCameraCapture();
+                updateLayout("Snapping a picture...");
+            }
         }
     }
 
@@ -216,6 +221,7 @@ public final class HelloWorldControl extends ControlExtension {
             BinaryBitmap bbmap = new BinaryBitmap(new HybridBinarizer(source));
             Reader reader = new QRCodeReader();
             try {
+                currentlyTakingPicture = false;
                 Result result = reader.decode(bbmap);
                 Log.d(Constants.LOG_TAG, result.getText());
 
