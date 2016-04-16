@@ -68,10 +68,14 @@ import com.sonyericsson.extras.liveware.extension.util.control.ControlTouchEvent
  */
 public final class HelloWorldControl extends ControlExtension {
 
-    /** Instance of the SmartEyeglass Control Utility class. */
+    /**
+     * Instance of the SmartEyeglass Control Utility class.
+     */
     private final SmartEyeglassControlUtils utils;
 
-    /** The SmartEyeglass API version that this app uses */
+    /**
+     * The SmartEyeglass API version that this app uses
+     */
     private static final int SMARTEYEGLASS_API_VERSION = 1;
 
     private boolean cameraStarted;
@@ -88,7 +92,7 @@ public final class HelloWorldControl extends ControlExtension {
      * @param hostAppPackageName Package name of SmartEyeglass host application.
      */
     public HelloWorldControl(final Context context,
-            final String hostAppPackageName, final String message) {
+                             final String hostAppPackageName, final String message) {
         super(context, hostAppPackageName);
 
         // Create the listener for the Camera
@@ -178,7 +182,7 @@ public final class HelloWorldControl extends ControlExtension {
     }
 
     /**
-     *  Update the display with the dynamic message text.
+     * Update the display with the dynamic message text.
      */
     private void updateLayout(String Text) {
         showLayout(R.layout.layout, null);
@@ -227,6 +231,7 @@ public final class HelloWorldControl extends ControlExtension {
 
                 BinaryBitmap bbmap = new BinaryBitmap(new HybridBinarizer(source));
                 Reader reader = new QRCodeReader();
+                int DelayTime = 5000;
                 try {
                     currentlyTakingPicture = false;
                     Result result = reader.decode(bbmap);
@@ -240,7 +245,36 @@ public final class HelloWorldControl extends ControlExtension {
                 } catch (FormatException e) {
                     e.printStackTrace();
                 }
+
+                try {
+                    if (DelayTime > 20000) {
+                        DelayTime = 20000;
+                    }
+                    Thread.sleep(DelayTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                updateLayout("");
+            BinaryBitmap bbmap = new BinaryBitmap(new HybridBinarizer(source));
+            Reader reader = new QRCodeReader();
+            int DelayTime = 5000;
+            try {
+                Result result = reader.decode(bbmap);
+                Log.d(Constants.LOG_TAG, result.getText());
+                DelayTime = result.getText().length() * 500;
+                updateLayout(result.getText());
+            } catch (NotFoundException e) {
+                updateLayout("QR Code Not Found");
+                e.printStackTrace();
+            } catch (ChecksumException e) {
+                e.printStackTrace();
+                updateLayout("QR Code Not Found");
+            } catch (FormatException e) {
+                e.printStackTrace();
+                updateLayout("QR Code Not Found");
             }
+
+
         }
     }
 
