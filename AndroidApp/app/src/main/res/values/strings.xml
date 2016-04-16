@@ -3,17 +3,17 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <!-- Name of app, shown when installing/uninstalling extension -->
-    <string name="app_name">Hello World</string>
+    <string name="app_name">AR Treasure Hunt</string>
     <!-- Title of preference activity -->
-    <string name="preference_activity_title">Hello World Settings</string>
+    <string name="preference_activity_title">AR Treasure Hunt Settings</string>
     <!-- Name of extension, shown in preferences -->
-    <string name="extension_name">Hello World</string>
+    <string name="extension_name">AR Treasure Hunt</string>
     <!-- Text used on control layout -->
-    <string name="text_title_layout">Sample Text</string>
+    <string name="text_title_layout"></string>
     <!-- Text in -->
     <string name="text_phone_to_smarteyeglass">Hello SmartEyeglass</string>
     
         <!-- Configuration title shown in preferences -->
-    <string name="configuration_text">Hello World Activity</string>
+    <string name="configuration_text">AR Treasure Hunt Activity</string>
     
 </resources>

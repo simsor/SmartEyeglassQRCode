@@ -21,7 +21,7 @@ android {
         if (variant.buildType.name.equals("release")) {
             variant.outputs.each { output ->
                 if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-                    output.outputFile = new File(output.outputFile.parent, "HelloWorld.apk")
+                    output.outputFile = new File(output.outputFile.parent, "AR-Treasure-Hunt.apk")
                 }
             }
         }
