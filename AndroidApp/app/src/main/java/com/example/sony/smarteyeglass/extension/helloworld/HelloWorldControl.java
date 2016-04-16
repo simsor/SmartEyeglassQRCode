@@ -32,8 +32,18 @@ Copyright (c) 2014, Sony Corporation
 package com.example.sony.smarteyeglass.extension.helloworld;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.text.format.Time;
+import android.util.DisplayMetrics;
 import android.util.Log;
+
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.sony.smarteyeglass.SmartEyeglassControl;
 import com.sony.smarteyeglass.extension.util.CameraEvent;
 import com.sony.smarteyeglass.extension.util.ControlCameraException;
@@ -58,6 +68,8 @@ public final class HelloWorldControl extends ControlExtension {
 
     private String MESSAGE = "QR Code Reader";
     private boolean cameraStarted;
+
+    private int width, height;
 
     /**
      * Shows a simple layout on the SmartEyeglass display and sets
@@ -105,6 +117,11 @@ public final class HelloWorldControl extends ControlExtension {
 
         updateLayout();
         cameraStarted = false;
+
+        BarcodeDetector barcodeDetector =
+                new BarcodeDetector.Builder(this.mContext)
+                        .setBarcodeFormats(Barcode.QR_CODE)
+                        .build();
     }
 
     /**
@@ -187,6 +204,12 @@ public final class HelloWorldControl extends ControlExtension {
     public void processPicture(CameraEvent event) {
         MESSAGE = "Got it!";
         updateLayout();
+
+        if (event.getIndex() == 0) {
+            byte[] data = event.getData();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+        }
     }
 
 
