@@ -39,6 +39,7 @@ import com.sony.smarteyeglass.extension.util.CameraEvent;
 import com.sony.smarteyeglass.extension.util.ControlCameraException;
 import com.sony.smarteyeglass.extension.util.SmartEyeglassControlUtils;
 import com.sony.smarteyeglass.extension.util.SmartEyeglassEventListener;
+import com.sonyericsson.extras.liveware.aef.control.Control;
 import com.sonyericsson.extras.liveware.extension.util.control.ControlExtension;
 import com.sonyericsson.extras.liveware.extension.util.control.ControlTouchEvent;
 
@@ -55,10 +56,8 @@ public final class HelloWorldControl extends ControlExtension {
     /** The SmartEyeglass API version that this app uses */
     private static final int SMARTEYEGLASS_API_VERSION = 1;
 
-    private String MESSAGE = "QR CODE";
+    private String MESSAGE = "QR Code Reader";
     private boolean cameraStarted;
-    private int jpegQuality;
-    private int resolution;
 
     /**
      * Shows a simple layout on the SmartEyeglass display and sets
@@ -94,6 +93,10 @@ public final class HelloWorldControl extends ControlExtension {
         utils.setRequiredApiVersion(SMARTEYEGLASS_API_VERSION);
         utils.activate(context);
 
+        utils.setCameraMode(SmartEyeglassControl.Intents.CAMERA_JPEG_QUALITY_FINE,
+                SmartEyeglassControl.Intents.CAMERA_RESOLUTION_3M,
+                SmartEyeglassControl.Intents.CAMERA_MODE_STILL);
+
         /*
          * Set reference back to this Control object
          * in ExtensionService class to allow access to SmartEyeglass Control
@@ -115,10 +118,6 @@ public final class HelloWorldControl extends ControlExtension {
     // Update the SmartEyeglass display when app becomes visible
     @Override
     public void onResume() {
-        jpegQuality = 1;
-        resolution = 6;
-        utils.setCameraMode(jpegQuality, resolution, SmartEyeglassControl.Intents.CAMERA_MODE_STILL);
-
         updateLayout();
         super.onResume();
     }
@@ -137,15 +136,18 @@ public final class HelloWorldControl extends ControlExtension {
     @Override
     public void onTouch(final ControlTouchEvent event) {
         super.onTouch(event);
-        MESSAGE = "Snapping a picture...";
-        Log.d(Constants.LOG_TAG, "Tapped");
 
-        if (!cameraStarted) {
-            initializeCamera();
+        if (event.getAction() == Control.TapActions.SINGLE_TAP) {
+            MESSAGE = "Snapping a picture...";
+            Log.d(Constants.LOG_TAG, "Tapped");
+
+            if (!cameraStarted) {
+                initializeCamera();
+            }
+
+            utils.requestCameraCapture();
+            updateLayout();
         }
-
-        utils.requestCameraCapture();
-        updateLayout();
     }
 
     /**
@@ -153,7 +155,7 @@ public final class HelloWorldControl extends ControlExtension {
      */
     private void updateLayout() {
         showLayout(R.layout.layout, null);
-        sendText(R.id.btn_update_this, "QR Code Reader");
+        sendText(R.id.btn_update_this, MESSAGE);
     }
 
     /**
@@ -186,4 +188,6 @@ public final class HelloWorldControl extends ControlExtension {
         MESSAGE = "Got it!";
         updateLayout();
     }
+
+
 }
