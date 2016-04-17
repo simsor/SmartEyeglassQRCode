@@ -328,6 +328,14 @@ public final class HelloWorldControl extends ControlExtension {
 
     public void onValidateError(String msg) {
         updateLayout("Error: " + msg);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        updateLayout(DEFAULT_TEXT);
     }
 
 
