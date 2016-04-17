@@ -9,15 +9,10 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91d1e93d-4b95-4e2f-aa35-780d745db041" name="Default" comment="Add WebsiteClient (basic HTTP client)">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
+    <list default="true" id="91d1e93d-4b95-4e2f-aa35-780d745db041" name="Default" comment="Fixed delay on treasure skip">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/phonelayout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/phonelayout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SmartExtensionAPI/SmartExtensionAPI.iml" afterPath="$PROJECT_DIR$/../SmartExtensionAPI/SmartExtensionAPI.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SmartExtensionUtils/SmartExtensionUtils.iml" afterPath="$PROJECT_DIR$/../SmartExtensionUtils/SmartExtensionUtils.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SmartEyeglassAPI/SmartEyeglassAPI.iml" afterPath="$PROJECT_DIR$/../SmartEyeglassAPI/SmartEyeglassAPI.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java" />
     </list>
     <ignored path="AndroidApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,11 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="HelloWorldControl.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HelloWorldControl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="325" column="17" selection-start-line="325" selection-start-column="17" selection-end-line="325" selection-end-column="17" />
+            <state vertical-scroll-proportion="3.7650273">
+              <caret line="269" column="34" selection-start-line="269" selection-start-column="34" selection-end-line="269" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -58,7 +53,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="phonelayout.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="phonelayout.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/phonelayout.xml">
           <provider editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
@@ -3680,8 +3675,8 @@
       <list>
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/WebsiteClient.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/phonelayout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java" />
       </list>
     </option>
   </component>
@@ -4059,7 +4054,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460863131007</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed clues on phone">
+      <created>1460867316025</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1460867316025</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -4067,7 +4068,7 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32949308" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -4100,7 +4101,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add WebsiteClient (basic HTTP client)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add WebsiteClient (basic HTTP client)" />
+    <MESSAGE value="Fixed clues on phone" />
+    <MESSAGE value="Fixed delay on treasure skip" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed delay on treasure skip" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4133,14 +4136,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="325" column="17" selection-start-line="325" selection-start-column="17" selection-end-line="325" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.7096774">
@@ -4166,6 +4161,14 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/sony/smarteyeglass/extension/helloworld/HelloWorldControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.7650273">
+          <caret line="269" column="34" selection-start-line="269" selection-start-column="34" selection-end-line="269" selection-end-column="34" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

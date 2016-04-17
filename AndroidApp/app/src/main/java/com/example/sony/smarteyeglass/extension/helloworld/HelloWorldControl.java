@@ -270,7 +270,6 @@ public final class HelloWorldControl extends ControlExtension {
                 int DelayTime = 5000;
                 boolean error = false;
                 try {
-                    DelayTime = 0;
                     currentlyTakingPicture = false;
                     Result result = reader.decode(bbmap);
                     Log.d(Constants.LOG_TAG, result.getText());
@@ -296,9 +295,6 @@ public final class HelloWorldControl extends ControlExtension {
 
                 if (error) {
                     try {
-                        if (DelayTime > 20000) {
-                            DelayTime = 20000;
-                        }
                         Thread.sleep(DelayTime);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
