@@ -20,9 +20,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/CluesTextArea"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="383dp"
-        android:text="@string/you_don_apos_t_have_any_clues_yet"
         android:layout_below="@+id/RefreshButton"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
