@@ -59,6 +59,12 @@ import com.sonyericsson.extras.liveware.aef.control.Control;
 import com.sonyericsson.extras.liveware.extension.util.control.ControlExtension;
 import com.sonyericsson.extras.liveware.extension.util.control.ControlTouchEvent;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * Demonstrates how to communicate between an Android activity and its
  * corresponding SmartEyeglass app.
@@ -269,6 +275,8 @@ public final class HelloWorldControl extends ControlExtension {
                     DelayTime = result.getText().length() * 500;
                     updateLayout(result.getText().split("\n"));
                     Clues = result.getText() +  "\n" + Clues;
+
+                    doWebsiteCommunication(result.getText());
                 } catch (NotFoundException e) {
                     updateLayout("QR Code Not Found");
                     e.printStackTrace();
@@ -294,6 +302,11 @@ public final class HelloWorldControl extends ControlExtension {
                 updateLayout(DEFAULT_TEXT);
             }
         }
+    }
+
+    public void doWebsiteCommunication(String qrCodeResult) {
+        String url = qrCodeResult.split("\n")[0];
+        new WebsiteClient(url);
     }
 
 
