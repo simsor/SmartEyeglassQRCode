@@ -1,6 +1,6 @@
 <?php
 class unregisteredUserController extends userController{
-	protected  $SPECIFIC_ACTION=array('login');
+	protected  $SPECIFIC_ACTION=array('login', "validateTreasure");
 
 	protected function login(){
 
@@ -38,7 +38,37 @@ class unregisteredUserController extends userController{
 		}
 	}
 
+	protected function validateTreasure() {
+		$playerUsername = $_GET["username"];
+		$treasureId = $_GET["treasure_id"];
 
+		$userManager = UserManager::getInstance();
+		$treasureManager = TreasureManager::getInstance();
+		$scanManager = ScanManager::getInstance();
+
+		$player = $userManager->getUserByUsername($playerUsername);
+		$treasure = $treasureManager->getTreasureById($treasureId);
+
+		$highestTreasureId = 0;
+		$scans = $player->getScans();
+		foreach ($scans as $scan) {
+			if ($scan->getTreasure_id() > $highestTreasureId)  	{
+				$highestTreasureId = $scan->getTreasure_id();
+			}
+		}
+		if (($highestTreasureId+1) == $treasure->getTreasure_id()) {
+			// Then this is the next treasure to find
+			$hint = $treasure->getNext_hint();
+			$scanManager->addScan($playerUsername, $treasureId);
+
+			echo Json_encode(array(
+				"state" => "success",
+				"hint" => $hint
+				));
+		} else {
+			echo "{state: 'error', error: 'You tried to skip a treasure'}";
+		}
+	}
 
 
 

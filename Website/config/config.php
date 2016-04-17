@@ -11,7 +11,7 @@ $rep=realpath(dirname(__FILE__)).'/../';
 // $host = "localhost";
 // //DB amen.fr
 $user="root";
-$password = "";
+$password = "197969roger";
 $base = "SmartEyeglassQRCode";
 $host = "localhost";
 
@@ -38,6 +38,6 @@ $view['error']='views/error.php';
 $role=array('user','admin','player');
 
 $actions=array('home','login','logout','getAllUsersJson','getAlltreasuresJson','getAllScansJson',
-				'add_user','start_game','stop_game' );
+				'add_user','start_game','stop_game', "validateTreasure" );
 
 ?>

@@ -36,11 +36,11 @@ abstract class userController{
 		// echo $this -> getAllScansJson();
 		// $mytrmana=TreasureManager::getInstance();
 		// $mytrmana=ScanManager::getInstance();
-		$mytrmana=UserManager::getInstance();
+		// $mytrmana=UserManager::getInstance();
 		// //$test=
 		// $value = $mytrmana->getAllUsersJson();
 		// // $value = $mytrmana->getAllScansJson();
-		// // $value = $mytrmana->getTreasureByIdJson(1);
+		// $value = $mytrmana->getTreasureByIdJson(1);
 		// // $value = $mytrmana->getAllTreasuresJson();
 
 		// // foreach($jsonstring as $value){
@@ -49,8 +49,8 @@ abstract class userController{
 		// //var_dump($mytrmana->getAllTreasures());
 		// var_dump($value);
 		// var_dump($this->getAllUsersJson());
-		// require_once ($view['home']);
-		echo $mytrmana->getAllUsersJson();
+		require_once ($view['home']);
+		// echo $mytrmana->getAllUsersJson();
 		}
 
 	
