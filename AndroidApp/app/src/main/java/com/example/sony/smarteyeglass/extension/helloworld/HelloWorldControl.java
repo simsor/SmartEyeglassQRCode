@@ -270,7 +270,7 @@ public final class HelloWorldControl extends ControlExtension {
                 int DelayTime = 5000;
                 boolean error = false;
                 try {
-                    currentlyTakingPicture = false;
+
                     Result result = reader.decode(bbmap);
                     Log.d(Constants.LOG_TAG, result.getText());
 
@@ -299,6 +299,7 @@ public final class HelloWorldControl extends ControlExtension {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    currentlyTakingPicture = false;
                     updateLayout(DEFAULT_TEXT);
                 }
             }
@@ -323,6 +324,7 @@ public final class HelloWorldControl extends ControlExtension {
             e.printStackTrace();
         }
 
+        currentlyTakingPicture = false;
         updateLayout(DEFAULT_TEXT);
     }
 
@@ -335,6 +337,7 @@ public final class HelloWorldControl extends ControlExtension {
             e.printStackTrace();
         }
 
+        currentlyTakingPicture = false;
         updateLayout(DEFAULT_TEXT);
     }
 
