@@ -307,7 +307,7 @@ public final class HelloWorldControl extends ControlExtension {
     }
 
     public void doWebsiteCommunication(String qrCodeResult) {
-        new WebsiteClient(this, qrCodeResult, "player1");
+        new WebsiteClient(this, qrCodeResult, HelloWorldActivity.PlayerID);
     }
 
     public void onValidateSuccess(String nextHint) {

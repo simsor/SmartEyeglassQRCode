@@ -52,12 +52,16 @@ import android.widget.Toast;
 public final class HelloWorldActivity extends Activity {
 
 
-        TextView CluesText;
+    TextView CluesText;
+    TextView Player;
+    public static String PlayerID= "Player1";
+
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.phonelayout);
 
+        Player = (TextView)findViewById(R.id.Player);
         CluesText = (TextView)findViewById(R.id.CluesTextArea);
 
         CluesText.setText(HelloWorldControl.Clues);
@@ -103,4 +107,15 @@ public final class HelloWorldActivity extends Activity {
     public void RefreshText(View view){
         CluesText.setText(HelloWorldControl.Clues);
     }
+
+    public void Player1(View view){
+        PlayerID="Player1";
+        Player.setText("Player 1");
+
+    }
+    public void Player2(View view){
+        PlayerID="Player2";
+        Player.setText("Player 2");
+    }
+
 }
