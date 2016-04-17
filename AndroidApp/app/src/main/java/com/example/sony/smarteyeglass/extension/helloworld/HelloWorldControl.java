@@ -89,6 +89,7 @@ public final class HelloWorldControl extends ControlExtension {
 
     private boolean cameraStarted;
     private boolean currentlyTakingPicture;
+    private boolean lost;
 
     private ScreenSize screenSize;
 
@@ -141,6 +142,9 @@ public final class HelloWorldControl extends ControlExtension {
         updateLayout(DEFAULT_TEXT);
         cameraStarted = false;
         currentlyTakingPicture = false;
+        lost = false;
+
+        new LostChecker(this);
     }
 
     /**
@@ -213,9 +217,15 @@ public final class HelloWorldControl extends ControlExtension {
         int stepY = 20;
         int y = stepY;
 
-        for (String curText : text) {
-            canvas.drawText(curText, x, y, paint);
-            y += stepY;
+        if (lost) {
+            // Then the only thing we're going to print is LOST
+            canvas.drawText("You lost ! Please get back to the", x, y, paint);
+            canvas.drawText("meeting point", x, y+stepY, paint);
+        } else {
+            for (String curText : text) {
+                canvas.drawText(curText, x, y, paint);
+                y += stepY;
+            }
         }
 
         showBitmap(textBmp);
@@ -339,6 +349,11 @@ public final class HelloWorldControl extends ControlExtension {
 
         currentlyTakingPicture = false;
         updateLayout(DEFAULT_TEXT);
+    }
+
+    public void lose() {
+        lost = true; // PANIC
+        updateLayout("");
     }
 
 
