@@ -1,0 +1,16 @@
+//Css desktop
+
+body{
+	background-color:blue;
+	align: center;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	font:12px Arial;
+}
+
+header{
+	height : 200px	 ;
+
+	background-color:blue;
+}

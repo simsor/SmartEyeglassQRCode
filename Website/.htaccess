@@ -1,0 +1,12 @@
+RewriteEngine on
+RewriteBase /apache2-default/
+
+RewriteRule ^([a-zA-Z0-9-]+)$ index.php?action=$1
+RewriteRule ^([a-zA-Z0-9-]+)/$ index.php?action=$1
+RewriteRule ^([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)$ index.php?action=$1&arg1=$2
+RewriteRule ^([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/$ index.php?action=$1&arg1=$2
+RewriteRule ^([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)$ index.php?action=$1&arg1=$2&arg2=$3
+RewriteRule ^([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/([a-zA-Z0-9-]+)/$ index.php?action=$1&arg1=$2&arg2=$3
+
+ErrorDocument 404 /error404
+

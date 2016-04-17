@@ -1,0 +1,22 @@
+/*
+	Retrospect by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+/* Feature */
+/* line 15, ../sass/ie9.scss */
+.feature .image {
+  width: 48%;
+  float: left;
+}
+/* line 20, ../sass/ie9.scss */
+.feature .content {
+  width: 52%;
+  float: left;
+}
+/* line 25, ../sass/ie9.scss */
+.feature:after {
+  content: '';
+  display: block;
+  clear: both;
+}
