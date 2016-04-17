@@ -1,6 +1,9 @@
 package com.example.sony.smarteyeglass.extension.helloworld;
 
+import android.util.JsonReader;
 import android.util.Log;
+
+import org.json.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,9 +20,14 @@ public class WebsiteClient implements Runnable {
     private Thread thread;
     private String url;
 
-    public WebsiteClient(String url) {
+    private static final String BASE_URL = "http://quentinchambefort.top/";
+
+    private HelloWorldControl parent;
+
+    public WebsiteClient(HelloWorldControl parent, String treasure_id, String username) {
         thread = new Thread(this);
-        this.url = url;
+        this.parent = parent;
+        this.url = BASE_URL + "?action=validateTreasure&username=" + username + "&treasure_id=" + treasure_id;
 
         thread.start();
     }
@@ -40,9 +48,21 @@ public class WebsiteClient implements Runnable {
 
             in.close();
             Log.d(Constants.LOG_TAG, contents);
+
+            JSONObject object = new JSONObject(contents);
+            String state = object.getString("state");
+
+            if (state.equals("success")) {
+                parent.onValidateSuccess(object.getString("hint"));
+            } else {
+                parent.onValidateError(object.getString("error"));
+            }
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

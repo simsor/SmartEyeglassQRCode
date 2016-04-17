@@ -268,17 +268,18 @@ public final class HelloWorldControl extends ControlExtension {
                 BinaryBitmap bbmap = new BinaryBitmap(new HybridBinarizer(source));
                 Reader reader = new QRCodeReader();
                 int DelayTime = 5000;
+                boolean error = false;
                 try {
+                    DelayTime = 0;
                     currentlyTakingPicture = false;
                     Result result = reader.decode(bbmap);
                     Log.d(Constants.LOG_TAG, result.getText());
-                    DelayTime = result.getText().length() * 500;
-                    updateLayout(result.getText().split("\n"));
-                    Clues = result.getText() +  "\n" + Clues;
+
 
                     doWebsiteCommunication(result.getText());
                 } catch (NotFoundException e) {
                     updateLayout("QR Code Not Found");
+                    error = true;
                     e.printStackTrace();
                 } catch (ChecksumException e) {
                     e.printStackTrace();
@@ -286,27 +287,51 @@ public final class HelloWorldControl extends ControlExtension {
                             "QR Code looks corrupted",
                             "Maybe try again?"
                     });
+                    error = true;
                 } catch (FormatException e) {
                     e.printStackTrace();
                     updateLayout("That's not a QR Code");
+                    error = true;
                 }
 
-                try {
-                    if (DelayTime > 20000) {
-                        DelayTime = 20000;
+                if (error) {
+                    try {
+                        if (DelayTime > 20000) {
+                            DelayTime = 20000;
+                        }
+                        Thread.sleep(DelayTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    Thread.sleep(DelayTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    updateLayout(DEFAULT_TEXT);
                 }
-                updateLayout(DEFAULT_TEXT);
             }
         }
     }
 
     public void doWebsiteCommunication(String qrCodeResult) {
-        String url = qrCodeResult.split("\n")[0];
-        new WebsiteClient(url);
+        new WebsiteClient(this, qrCodeResult, "player1");
+    }
+
+    public void onValidateSuccess(String nextHint) {
+        int DelayTime = nextHint.length() * 500;
+        updateLayout(nextHint.split("\n"));
+        Clues = nextHint +  "\n" + Clues;
+
+        try {
+            if (DelayTime > 20000) {
+                DelayTime = 20000;
+            }
+            Thread.sleep(DelayTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        updateLayout(DEFAULT_TEXT);
+    }
+
+    public void onValidateError(String msg) {
+        updateLayout("Error: " + msg);
     }
 
 
