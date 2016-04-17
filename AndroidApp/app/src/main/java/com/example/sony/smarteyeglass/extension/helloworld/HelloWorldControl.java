@@ -160,7 +160,7 @@ public final class HelloWorldControl extends ControlExtension {
     public void onResume() {
         cameraStarted = false;
         currentlyTakingPicture = false;
-        utils.setCameraMode(SmartEyeglassControl.Intents.CAMERA_JPEG_QUALITY_FINE,
+        utils.setCameraMode(SmartEyeglassControl.Intents.CAMERA_JPEG_QUALITY_STANDARD,
                 SmartEyeglassControl.Intents.CAMERA_RESOLUTION_3M,
                 SmartEyeglassControl.Intents.CAMERA_MODE_STILL);
         updateLayout(DEFAULT_TEXT);
@@ -321,7 +321,7 @@ public final class HelloWorldControl extends ControlExtension {
     }
 
     public void onValidateSuccess(String nextHint) {
-        int DelayTime = nextHint.length() * 500;
+        int DelayTime = nextHint.length() * 250;
         updateLayout(nextHint.split("\n"));
         Clues = nextHint +  "\n" + Clues;
 

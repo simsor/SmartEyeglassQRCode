@@ -37,7 +37,7 @@ public class LostChecker implements Runnable {
 
     @Override
     public void run() {
-        while (!lost) {
+        while (true) {
             this.url = BASE_URL + "?action=checkIfLost&username=" + HelloWorldActivity.PlayerID;
             URL url = null;
             try {
@@ -58,8 +58,6 @@ public class LostChecker implements Runnable {
                     Log.d(Constants.LOG_TAG, "WE LOST");
                     lost = true;
                     parent.lose();
-                } else {
-                    Log.d(Constants.LOG_TAG, "We haven't lost yet");
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
